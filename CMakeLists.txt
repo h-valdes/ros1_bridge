@@ -16,6 +16,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rmw_implementation_cmake REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(apriltag_msgs REQUIRED)
 
 # find ROS 1 packages
 set(cmake_extras_files cmake/find_ros1_package.cmake cmake/find_ros1_interface_packages.cmake)
@@ -193,6 +194,20 @@ custom_executable(static_bridge
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES ${ros2_interface_packages})
 target_link_libraries(static_bridge
+  ${PROJECT_NAME})
+
+custom_executable(static_bridge_filtered_camera
+  "src/static_bridge_filtered_camera.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES ${ros2_interface_packages})
+target_link_libraries(static_bridge_filtered_camera
+  ${PROJECT_NAME})
+
+custom_executable(static_bridge_apriltag
+  "src/static_bridge_apriltag.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES ${ros2_interface_packages})
+target_link_libraries(static_bridge_apriltag
   ${PROJECT_NAME})
 
 custom_executable(parameter_bridge
