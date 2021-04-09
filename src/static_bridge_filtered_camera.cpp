@@ -47,6 +47,12 @@ int main(int argc, char* argv[]) {
     std::string ros2_type_name_toggle = "std_msgs/msg/Bool";
     size_t queue_size_toggle = 10;
 
+    // bridge the /tag_detections topic
+    std::string topic_name_apriltag = "/tag_detections";
+    std::string ros1_type_name_apriltag = "apriltag_ros/AprilTagDetectionArray";
+    std::string ros2_type_name_apriltag = "apriltag_msgs/msg/AprilTagDetectionArray";
+    size_t queue_size_apriltag = 10;
+
     auto handles_is_ir = ros1_bridge::create_bidirectional_bridge(
         ros1_node, ros2_node, ros1_type_name_is_ir, ros2_type_name_is_ir, topic_name_is_ir, queue_size_is_ir);
 
@@ -58,6 +64,9 @@ int main(int argc, char* argv[]) {
     
     auto handles_toggle = ros1_bridge::create_bidirectional_bridge(
         ros1_node, ros2_node, ros1_type_name_toggle, ros2_type_name_toggle, topic_name_toggle, queue_size_toggle);
+
+    auto handles_apriltag = ros1_bridge::create_bidirectional_bridge(
+        ros1_node, ros2_node, ros1_type_name_apriltag, ros2_type_name_apriltag, topic_name_apriltag, queue_size_apriltag);
 
     // ROS 1 asynchronous spinner
     ros::AsyncSpinner async_spinner(1);
